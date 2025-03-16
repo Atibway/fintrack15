@@ -1,5 +1,5 @@
 {
-  "id": "8995745c-fa52-4a95-b7dd-98060dafc38e",
+  "id": "cfe7a2b8-bc20-4fb1-bd0f-ee57e1e4fdaf",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -407,12 +407,6 @@
         },
         "image": {
           "name": "image",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "currency": {
-          "name": "currency",
           "type": "text",
           "primaryKey": false,
           "notNull": false

@@ -65,7 +65,7 @@ const onSubmit=(values: formValues)=> {
 }
     return (
         <Sheet open={isOpen} onOpenChange={onClose}>
-        <SheetContent className="space-y-4 ">
+        <SheetContent className="space-y-4 dark:bg-slate-900 px-5">
           <SheetHeader>
             <SheetTitle>
                 New Transaction

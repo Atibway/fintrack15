@@ -68,7 +68,7 @@ onClose()
       <>
       <ConfirmDialog/>
         <Sheet open={isOpen} onOpenChange={handleClose}>
-        <SheetContent className="space-y-4 bg-white">
+        <SheetContent className="space-y-4 bg-white dark:bg-slate-900 px-5">
           <SheetHeader>
             <SheetTitle>
                 Edit Account

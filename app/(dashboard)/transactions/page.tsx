@@ -116,7 +116,7 @@ const TransactionsPageComponent = () => {
 
   return (
     <div className="pb-10 px-4 sm:px-6 lg:px-8">
-      <div className="mb-10 flex items-center justify-between">
+      <div className=" mb-4 ">
         <Filters />
       </div>
       <Card className="border-none drop-shadow-sm">
@@ -136,7 +136,7 @@ const TransactionsPageComponent = () => {
         </CardHeader>
         <CardContent className="w-[27rem] sm:w-[40rem] md:w-full " >
     <DataTable
-      filterKey="payee"
+      filterKey="payye"
       columns={columns}
       data={transactions}
       onDelete={(row) => {
@@ -151,7 +151,7 @@ const TransactionsPageComponent = () => {
 
 
       </Card>
-   
+  
     </div>
   )
 }

@@ -1,33 +1,38 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { PlusCircle, PlusIcon } from "lucide-react";
-import { motion } from "framer-motion";
-import BudgetCard from "@/components/Budget/BudgetCard";
-import CreateBudgetForm from "@/components/Budget/CreateBudgetForm";
-import { useQuery } from "@tanstack/react-query";
-import { fetchBudgets } from "@/actions/budgets-actions";
-import BudgetIndexSkeleton from "./BudgetIndexSkeleton";
+import { useState } from "react"
+import { Button } from "@/components/ui/button"
+import { PlusCircle, PlusIcon } from "lucide-react"
+import { motion } from "framer-motion"
+import BudgetCard from "@/components/Budget/BudgetCard"
+import CreateBudgetForm from "@/components/Budget/CreateBudgetForm"
+import { useQuery } from "@tanstack/react-query"
+import { fetchBudgets } from "@/actions/budgets-actions"
+import BudgetIndexSkeleton from "./BudgetIndexSkeleton"
 
 const Index = () => {
-  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [showCreateForm, setShowCreateForm] = useState(false)
 
-  const { data: budgets, isLoading, error } = useQuery({
+  const {
+    data: budgets,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["budgets"],
     queryFn: async () => fetchBudgets(),
-  });
+    staleTime: 30 * 1000, // Add explicit staleTime for Next.js 15
+  })
 
   // Animation variants
   const plusBoxVariants = {
     hidden: { opacity: 0, y: -20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.2 } },
-  };
+  }
 
   const plusButtonHover = {
     scale: 1.1,
     transition: { type: "spring", stiffness: 200 },
-  };
+  }
 
   return (
     <div className="min-h-screen m-0 pb-7 flex flex-col">
@@ -78,11 +83,7 @@ const Index = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1 }}
               >
-                <Button
-                  onClick={() => setShowCreateForm(true)}
-                  size="lg"
-                  className="font-medium rounded-full"
-                >
+                <Button onClick={() => setShowCreateForm(true)} size="lg" className="font-medium rounded-full">
                   <PlusIcon className="mr-2 h-5 w-5" />
                   Create Budget
                 </Button>
@@ -90,11 +91,7 @@ const Index = () => {
             </div>
 
             {/* Right Section - Plus Button with Boxes */}
-            <motion.div
-              className="relative"
-              whileHover={plusButtonHover}
-              onClick={() => setShowCreateForm(true)}
-            >
+            <motion.div className="relative" whileHover={plusButtonHover} onClick={() => setShowCreateForm(true)}>
               {/* Plus Button */}
               <motion.div
                 className="aspect-square bg-gradient-to-tr from-blue-500 to-blue-400 rounded-3xl p-6 flex items-center justify-center shadow-lg cursor-pointer"
@@ -161,7 +158,8 @@ const Index = () => {
         </>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index
+

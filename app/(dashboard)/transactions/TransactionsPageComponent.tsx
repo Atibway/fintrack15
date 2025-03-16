@@ -115,7 +115,7 @@ const TransactionsPageComponent = () => {
   }
 
   return (
-    <div className="pb-10 px-4 sm:px-6 lg:px-8">
+    <div className="pb-10  px-4 sm:px-6 lg:px-8">
       <div className="mb-10 flex items-center justify-between">
         <Filters />
       </div>

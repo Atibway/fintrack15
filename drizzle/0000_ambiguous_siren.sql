@@ -60,7 +60,6 @@ CREATE TABLE IF NOT EXISTS "user" (
 	"email" text,
 	"emailVerified" timestamp,
 	"image" text,
-	"currency" text,
 	"number" text,
 	"date" text,
 	CONSTRAINT "user_email_unique" UNIQUE("email")

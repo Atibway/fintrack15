@@ -32,7 +32,7 @@ mutation.mutate(values, {
 }
     return (
         <Sheet open={isOpen} onOpenChange={onClose}>
-        <SheetContent className="space-y-4 bg-white">
+        <SheetContent className="space-y-4 dark:bg-slate-900 px-5">
           <SheetHeader>
             <SheetTitle>
                 New Category
