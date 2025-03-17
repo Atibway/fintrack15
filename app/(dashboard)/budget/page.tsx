@@ -15,7 +15,6 @@ const Index = () => {
 
   const {
     data: budgets,
-    isLoading,
     error,
   } = useQuery({
     queryKey: ["budgets"],
