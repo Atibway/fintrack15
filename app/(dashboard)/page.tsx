@@ -1,17 +1,13 @@
 
-import { Suspense} from "react";
-import LoadingPage from "./HomeLoading";
-
 import { DashboardPage } from "./Dashboardpage";
-
+import PageTransition from "./reports/PageTransition";
 
 const HomePage = async() => {
 
-
   return (
-  <Suspense fallback={<LoadingPage/>}>
-    <DashboardPage/>
-  </Suspense>
+    <PageTransition>
+      <DashboardPage/>
+    </PageTransition>
   )
 }
 
