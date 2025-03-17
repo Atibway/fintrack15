@@ -3,7 +3,7 @@ import authConfig from "./auth.config"
 import { getUserById } from "./data/user"
 import { db } from "./db/drizzle"
 import { users } from "./db/schema"
-import { eq } from "drizzle-orm"
+import { and, eq } from "drizzle-orm"
 import { getAccountByUserId } from "./data/account"
 import { DrizzleAdapter } from "@auth/drizzle-adapter"
 
@@ -15,11 +15,16 @@ error: "/error"
     },
     events: {
 async linkAccount({user}){
-await db
-.update(users)
-.set({emailVerified: new Date()})
-.where(eq(users.id, user.id as string))
-    }},
+  await db
+  .update(users)
+  .set({emailVerified: new Date()})
+  .where(
+      and(
+          eq(users.id, user.id as string)
+      )
+  ).returning()
+    }
+  },
     callbacks: {
       async signIn({user,account}){
         if(account?.provider !== "credentials") return true

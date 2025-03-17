@@ -7,7 +7,7 @@ import { SettingsSchema } from "@/schemas"
 
 import * as z from "zod"
 import { users } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 
 
 export const settings = async(
@@ -17,15 +17,23 @@ const user = await currentUser();
 if(!user) {
     return {error: "Unauthorized"}
 }
+
 const dbUser = await getUserById(user.id as string)
+
 
 if(!dbUser) {
     return {error: "Unauthorized"}
 }
+         await db
+        .update(users)
+        .set(values)
+        .where(
+            and(
+                eq(users.id, user.id as string)
+            )
+        ).returning()
 
-await db.update(users)
-    .set(values)
-    .where(eq(users.id, users.id));
+    
 
 return {success: "Settings Updated"}
 }

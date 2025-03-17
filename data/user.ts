@@ -24,9 +24,6 @@ export const getUserById = async (id: string) => {
       .select()
       .from(users)
       .where(eq(users.id, id))
-
- 
-
     return result
   } catch (error) {
     console.error("Error fetching user by ID:", error)
