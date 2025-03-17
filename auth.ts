@@ -2,10 +2,9 @@ import NextAuth from "next-auth"
 import authConfig from "./auth.config"
 import { getUserById } from "./data/user"
 import { db } from "./db/drizzle"
-import { users } from "./db/schema"
-import { and, eq } from "drizzle-orm"
 import { getAccountByUserId } from "./data/account"
 import { DrizzleAdapter } from "@auth/drizzle-adapter"
+import { UpdateUserWhenLoggedInWithAccount } from "./actions/updateUser"
 
 export const {
   handlers, auth, signIn, signOut} = NextAuth({
@@ -15,14 +14,10 @@ error: "/error"
     },
     events: {
 async linkAccount({user}){
-  await db
-  .update(users)
-  .set({emailVerified: new Date()})
-  .where(
-      and(
-          eq(users.id, user.id as string)
-      )
-  ).returning()
+  if (user.id) {
+    await UpdateUserWhenLoggedInWithAccount(user.id);
+  }
+
     }
   },
     callbacks: {
