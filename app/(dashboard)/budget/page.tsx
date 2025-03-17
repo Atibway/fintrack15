@@ -8,7 +8,7 @@ import BudgetCard from "@/components/Budget/BudgetCard"
 import CreateBudgetForm from "@/components/Budget/CreateBudgetForm"
 import { useQuery } from "@tanstack/react-query"
 import { fetchBudgets } from "@/actions/budgets-actions"
-import BudgetIndexSkeleton from "./BudgetIndexSkeleton"
+
 
 const Index = () => {
   const [showCreateForm, setShowCreateForm] = useState(false)
@@ -36,10 +36,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen m-0 pb-7 flex flex-col">
-      {isLoading ? (
-        <BudgetIndexSkeleton />
-      ) : (
-        <>
+    <>
           {/* Hero and Budgets Section */}
           <motion.section
             className="relative flex-1 w-full h-full flex items-center justify-center overflow-hidden"
@@ -156,7 +153,6 @@ const Index = () => {
           {/* Create Budget Form */}
           <CreateBudgetForm isOpen={showCreateForm} onClose={() => setShowCreateForm(false)} />
         </>
-      )}
     </div>
   )
 }
