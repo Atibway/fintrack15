@@ -67,10 +67,12 @@ const startDate= dateRange.from;
  const reportFormat = selectedFormat;
       await generateReport(userId, startDate, endDate, reportFormat)
         setLoading(false);
-    
+  
     } catch (error) {
       console.error("Error generating report:", error);
       setLoading(false);
+    } finally {
+      setLoading(false)
     }
   };
 
