@@ -53,7 +53,7 @@ reportFormat: "pdf" | "excel" | "word"
 
     // Fetch the transactions for the given date range
     const transactions = await getTransactionsForDateRange(userId, startDate, endDate);
-    console.log("Fetched Transactions:", transactions);
+ 
 
     // Ensure transactions exist
     if (transactions.length === 0) {
@@ -80,8 +80,9 @@ reportFormat: "pdf" | "excel" | "word"
     } else {
       throw new Error("Invalid report format selected.");
     }
-
+    toast.dismiss();
     toast.success(`Successfully generated ${reportFormat.toUpperCase()} report.`);
+    toast.dismiss();
 
     // Create a Blob for download
     const blob = new Blob([fileData], { type: mimeType });
@@ -98,14 +99,16 @@ reportFormat: "pdf" | "excel" | "word"
     a.click();
     document.body.removeChild(a);
 
-    toast.dismiss();
     toast.success(`Report downloaded: ${fileName}`);
+    toast.dismiss();
   } catch (error) {
     toast.dismiss();
     toast.error(`Failed to generate Format=${reportFormat}, User=${userId}, Range=${startDate} to ${endDate}`, {
       description: 'Please try again later.',
     });
     throw error; // Re-throw the error for further handling
+  } finally {
+    toast.dismiss()
   }
 }
 

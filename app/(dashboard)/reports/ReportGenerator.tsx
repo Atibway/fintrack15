@@ -60,19 +60,16 @@ const ReportGenerator: React.FC<ReportGeneratorProps> = ({
       return;
     }
 
+    setLoading(true);
     try {
-      setLoading(true);
 const startDate= dateRange.from;
  const endDate = dateRange.to;
  const reportFormat = selectedFormat;
       await generateReport(userId, startDate, endDate, reportFormat)
         setLoading(false);
-  
     } catch (error) {
       console.error("Error generating report:", error);
       setLoading(false);
-    } finally {
-      setLoading(false)
     }
   };
 
