@@ -1,8 +1,11 @@
+import PageTransition from "../reports/PageTransition"
 import CategoriesPage from "./categoriesPageComponet"
 
 const page = () => {
   return (
-    <CategoriesPage/>
+    <PageTransition>
+      <CategoriesPage/>
+    </PageTransition>
   )
 }
 

@@ -8,9 +8,7 @@ import {
 } from "@/components/ui/card"
 import { transactions as transactionSchema } from "@/db/schema"
 import { Plus } from "lucide-react"
-
 import { DataTable } from "@/components/data-table"
-import { Skeleton } from "@/components/ui/skeleton"
 import { useNewTransaction } from "@/features/transactions/hooks/use-new-transaction"
 
 import { useState } from "react"
@@ -19,11 +17,11 @@ import { UploadButton } from "./UploadButton"
 import { useSelectAccount } from "@/features/accounts/hooks/use-select-account"
 import { toast } from "sonner"
 import { Filters } from "@/components/filters/Filters"
-import DataTableSkeleton from "@/components/loadings/data-table-skeleton"
 import { useBulkDeleteTransactions } from "@/features/transactions/api/use-bult-delete-transactions"
 import { useBulkCreateTransactions } from "@/features/transactions/api/use-bult-create-transactions"
 import { usegetTransactions } from "@/features/transactions/api/use-get-transactions"
 import { columns } from "./colums"
+import PageTransition from "../reports/PageTransition"
 
 enum VARIANTS {
   LIST = "LIST",
@@ -82,27 +80,28 @@ const TransactionsPageComponent = () => {
   };
 
 
-  if (transactionsQuery.isLoading) {
-    return (
-      <div className="max-w-screen-2xl mx-auto w-full pb-10">
-        <Card className="border-none drop-shadow-sm">
-          <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between">
-            <Skeleton className="h-8 w-48" />
-            <div className="flex gap-x-2">
-              <Skeleton className="h-8 w-full lg:w-20 " />
-              <Skeleton className="h-8 w-full lg:w-20 " />
-            </div>
-          </CardHeader>
-          <CardContent>
-            <DataTableSkeleton />
-          </CardContent>
-        </Card>
-      </div>
-    )
-  }
+  // if (transactionsQuery.isLoading) {
+  //   return (
+  //     <div className="max-w-screen-2xl mx-auto w-full pb-10">
+  //       <Card className="border-none drop-shadow-sm">
+  //         <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between">
+  //           <Skeleton className="h-8 w-48" />
+  //           <div className="flex gap-x-2">
+  //             <Skeleton className="h-8 w-full lg:w-20 " />
+  //             <Skeleton className="h-8 w-full lg:w-20 " />
+  //           </div>
+  //         </CardHeader>
+  //         <CardContent>
+  //           <DataTableSkeleton />
+  //         </CardContent>
+  //       </Card>
+  //     </div>
+  //   )
+  // }
 
   if (variant === VARIANTS.IMPORT) {
     return (
+      <PageTransition>
       <>
         <AccountDialog />
         <ImportCard
@@ -111,6 +110,7 @@ const TransactionsPageComponent = () => {
           onSubmit={onSubmitImport}
         />
       </>
+      </PageTransition>
     )
   }
 

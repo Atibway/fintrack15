@@ -1,10 +1,12 @@
 
 import { DashboardPage } from "../Dashboardpage";
+import PageTransition from "../reports/PageTransition";
 
 const HomePage = () => {
   return (
-
-    <DashboardPage/>
+<PageTransition>
+  <DashboardPage/>
+</PageTransition>
 
   )
 }

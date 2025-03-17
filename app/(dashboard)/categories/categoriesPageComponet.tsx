@@ -41,6 +41,7 @@ const CategoriesPage = () => {
 //   </div>
 // )
 //     }
+
   return (
     <div className="max-w-screen-2xl mx-auto w-full pb-10">
     <Card className="border-none drop-shadow-sm">
