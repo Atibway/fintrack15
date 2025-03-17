@@ -1,6 +1,7 @@
 import { getUserById } from "@/data/user"
 import SettingsComponent from "./page-component"
 import { currentUser } from "@/lib/auth"
+import PageTransition from "../reports/PageTransition"
 
 const Settings = async () => {
   const loggedInUser = await currentUser()
@@ -19,8 +20,13 @@ const Settings = async () => {
     birth: dbUser?.birth,
     number: dbUser?.number,
   }
-  return <SettingsComponent user={user} />
+  return (
+    <PageTransition>
+      <SettingsComponent user={user} />
+    </PageTransition>
+  )
 }
+
 
 export default Settings
 

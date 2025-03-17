@@ -11,9 +11,7 @@ import { Plus } from "lucide-react"
 import { columns} from "./colums"
 import { DataTable } from "@/components/data-table"
 import { usegetAccounts } from "@/features/accounts/api/use-get-accounts"
-import { Skeleton } from "@/components/ui/skeleton"
 import { useBulkDeleteAccounts } from "@/features/accounts/api/use-bult-delete-acounts"
-import DataTableSkeleton from "@/components/loadings/data-table-skeleton"
 
 
 const AccountsPageComponet = () => {
@@ -24,21 +22,21 @@ const AccountsPageComponet = () => {
 
     const isDisabled = accountsQuery.isLoading || deleteAccounts.isPending
 
-    if(accountsQuery.isLoading){
-return (
-  <div className="max-w-screen-2xl mx-auto w-full pb-10 ">
-    <Card className="border-none drop-shadow-sm">
-    <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between">
-      <Skeleton className="h-8 w-48"/>
-      <Skeleton className="h-8 w-full lg:w-20 "/>
-    </CardHeader>
-    <CardContent>
-       <DataTableSkeleton/>
-    </CardContent>
-    </Card>
-  </div>
-)
-    }
+//     if(accountsQuery.isLoading){
+// return (
+//   <div className="max-w-screen-2xl mx-auto w-full pb-10 ">
+//     <Card className="border-none drop-shadow-sm">
+//     <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between">
+//       <Skeleton className="h-8 w-48"/>
+//       <Skeleton className="h-8 w-full lg:w-20 "/>
+//     </CardHeader>
+//     <CardContent>
+//        <DataTableSkeleton/>
+//     </CardContent>
+//     </Card>
+//   </div>
+// )
+//     }
   return (
     <div className="max-w-screen-2xl mx-auto w-full pb-10 ">
     <Card className="border-none drop-shadow-sm">

@@ -10,11 +10,10 @@ import {
 import {  Plus } from "lucide-react"
 import { columns} from "./colums"
 import { DataTable } from "@/components/data-table"
-import { Skeleton } from "@/components/ui/skeleton"
 import { useNewCategory } from "@/features/categories/hooks/use-new-category"
 import { useBulkDeleteCategories } from "@/features/categories/api/use-bult-delete-categories"
 import { usegetCategories } from "@/features/categories/api/use-get-categories"
-import DataTableSkeleton from "@/components/loadings/data-table-skeleton"
+
 
 
 
@@ -27,21 +26,21 @@ const CategoriesPage = () => {
 
     const isDisabled = categoriesQuery.isLoading || deleteCategories.isPending
 
-    if(categoriesQuery.isLoading){
-return (
-  <div className="max-w-screen-2xl mx-auto w-full pb-10 ">
-    <Card className="border-none drop-shadow-sm">
-    <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between">
-      <Skeleton className="h-8 w-48"/>
-      <Skeleton className="h-8 w-full lg:w-20 "/>
-    </CardHeader>
-    <CardContent>
-       <DataTableSkeleton/>
-    </CardContent>
-    </Card>
-  </div>
-)
-    }
+//     if(categoriesQuery.isLoading){
+// return (
+//   <div className="max-w-screen-2xl mx-auto w-full pb-10 ">
+//     <Card className="border-none drop-shadow-sm">
+//     <CardHeader className="gap-y-2 lg:flex-row lg:items-center lg:justify-between">
+//       <Skeleton className="h-8 w-48"/>
+//       <Skeleton className="h-8 w-full lg:w-20 "/>
+//     </CardHeader>
+//     <CardContent>
+//        <DataTableSkeleton/>
+//     </CardContent>
+//     </Card>
+//   </div>
+// )
+//     }
   return (
     <div className="max-w-screen-2xl mx-auto w-full pb-10">
     <Card className="border-none drop-shadow-sm">
