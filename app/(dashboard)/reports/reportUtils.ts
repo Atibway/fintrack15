@@ -39,21 +39,19 @@ export const formatCurrency = (amount: number): string => {
 };
 
 
-
 export async function generateReport(
-userId: string, 
-startDate: Date, 
-endDate: Date, 
-reportFormat: "pdf" | "excel" | "word"
-): Promise<Blob | void> {
-  try {
-    
-    toast.loading(`Starting report generation: Format=${reportFormat}, User=${userId}, Range=${startDate} to ${endDate}`);
-    
+  userId: string,
+  startDate: Date,
+  endDate: Date,
+  reportFormat: "pdf" | "excel" | "word"
+): Promise<void> {
+  const toastId = toast.loading(
+    `Starting report generation: Format=${reportFormat}, User=${userId}, Range=${startDate} to ${endDate}`
+  );
 
+  try {
     // Fetch the transactions for the given date range
     const transactions = await getTransactionsForDateRange(userId, startDate, endDate);
- 
 
     // Ensure transactions exist
     if (transactions.length === 0) {
@@ -65,30 +63,35 @@ reportFormat: "pdf" | "excel" | "word"
     let mimeType: string;
     let fileExtension: string;
 
-    if (reportFormat === "pdf") {
-      fileData = await generatePDF(transactions);
-      mimeType = "application/pdf";
-      fileExtension = "pdf";
-    } else if (reportFormat === "excel") {
-      fileData = await generateExcel(transactions);
-      mimeType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-      fileExtension = "xlsx";
-    } else if (reportFormat === "word") {
-      fileData = await generateWord(transactions);
-      mimeType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
-      fileExtension = "docx";
-    } else {
-      throw new Error("Invalid report format selected.");
+    switch (reportFormat) {
+      case "pdf":
+        fileData = await generatePDF(transactions);
+        mimeType = "application/pdf";
+        fileExtension = "pdf";
+        break;
+      case "excel":
+        fileData = await generateExcel(transactions);
+        mimeType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+        fileExtension = "xlsx";
+        break;
+      case "word":
+        fileData = await generateWord(transactions);
+        mimeType = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
+        fileExtension = "docx";
+        break;
+      default:
+        throw new Error("Invalid report format selected.");
     }
-    toast.dismiss();
+
+    // Dismiss loading toast and show success
+    toast.dismiss(toastId);
     toast.success(`Successfully generated ${reportFormat.toUpperCase()} report.`);
-    toast.dismiss();
 
     // Create a Blob for download
     const blob = new Blob([fileData], { type: mimeType });
-    const fileName = `financial-report-${reportFormat}-${startDate.toISOString().split("T")[0]}-to-${endDate
+    const fileName = `financial-report-${reportFormat}-${startDate
       .toISOString()
-      .split("T")[0]}.${fileExtension}`;
+      .split("T")[0]}-to-${endDate.toISOString().split("T")[0]}.${fileExtension}`;
 
     // Trigger a download in the browser
     const url = URL.createObjectURL(blob);
@@ -100,17 +103,19 @@ reportFormat: "pdf" | "excel" | "word"
     document.body.removeChild(a);
 
     toast.success(`Report downloaded: ${fileName}`);
-    toast.dismiss();
   } catch (error) {
-    toast.dismiss();
-    toast.error(`Failed to generate Format=${reportFormat}, User=${userId}, Range=${startDate} to ${endDate}`, {
-      description: 'Please try again later.',
+    // Dismiss loading toast and show error
+    toast.dismiss(toastId);
+    toast.error(`Failed to generate report: ${error}`, {
+      description: "Please try again later.",
     });
     throw error; // Re-throw the error for further handling
   } finally {
-    toast.dismiss()
+    // Ensure toasts are dismissed in all cases
+    toast.dismiss(toastId);
   }
 }
+
 
 
 // Function to get the current week's date range
